@@ -11,15 +11,6 @@ import XCTest
 
 import Foundation // NSError
 
-struct CoreTests {
-    struct NSErrors {
-        static let unknown = NSError(domain: "Unknown domain", code: 999, userInfo: [NSLocalizedDescriptionKey: "Unknown description"])
-        static let generalError = NSError(domain: "UnitTest.Error", code: 111, userInfo: [NSLocalizedDescriptionKey: "General Error used for unit testing"])
-    }
-    
-    static let drinkIngredientsMilk = DrinkIngredients(items: [DrinkIngredient(name: "Milk")])
-}
-
 final class DrinksRepositoryTests: XCTestCase {
     
     var sut: DrinksRepository!
@@ -36,7 +27,7 @@ final class DrinksRepositoryTests: XCTestCase {
         dummyError = CoreTests.NSErrors.generalError
         dummyDrinks = Drinks(items: [])
         dummyDrinkDetails = DrinkDetails.blank
-        dummyDrinkIngradients = CoreTests.drinkIngredientsMilk
+        dummyDrinkIngradients = CoreTests.MyDrinks.Ingredients.milk
         
         serviceMock = DrinksServiceMock()
         
@@ -51,35 +42,6 @@ final class DrinksRepositoryTests: XCTestCase {
         dummyError = nil
         dummyDrinks = nil
         serviceMock = nil
-    }
-    
-    // MARK: - Mocks -
-    
-    class DrinksServiceMock: DrinksServiceProtocol {
-        
-        var result: Result<Drinks, NSError> = .failure(CoreTests.NSErrors.unknown)
-        var fetchDrinksUsingFilterCompleted = false
-        
-        func fetchDrinksUsingFilter(name: String, completion: @escaping (Result<Drinks, NSError>) -> Void) {
-            fetchDrinksUsingFilterCompleted = true
-            completion(result)
-        }
-        
-        var resultDrinkDetails: Result<DrinkDetails, NSError> = .failure(CoreTests.NSErrors.unknown)
-        var fetchDrinkDetailsCompleted = false
-        
-        func fetchDrinkDetails(id: String, completion: @escaping (Result<DrinkDetails, NSError>) -> Void) {
-            fetchDrinkDetailsCompleted = true
-            completion(resultDrinkDetails)
-        }
-        
-        var resultIngredients: Result<DrinkIngredients, NSError> = .failure(CoreTests.NSErrors.unknown)
-        var fetchIngradientsListCompleted = false
-        
-        func fetchIngradientsList(completion: @escaping (Result<DrinkIngredients, NSError>) -> Void) {
-            fetchIngradientsListCompleted = true
-            completion(resultIngredients)
-        }
     }
     
     // MARK: - Tests -

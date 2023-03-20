@@ -14,21 +14,22 @@ class DrinksSearchListPresenter: DrinksSearchListInterfaceOut
     weak var ui: DrinksSearchListInterfaceIn!
     var coordinator: Coordinator!
     
-    private var drinksRepository: DrinksRepositoryProtocol?
+    private var drinksRepository: DrinksRepositoryProtocol
     private var allIngredients: [String] = []
 
-    init(ui: DrinksSearchListInterfaceIn, coordinator: Coordinator) {
+    init(ui: DrinksSearchListInterfaceIn, coordinator: Coordinator,
+         drinksRepository: DrinksRepositoryProtocol) {
         self.ui = ui
         self.coordinator = coordinator
         
         self.drinksModel = DrinksModel(items: [])
-        self.drinksRepository = AppMainModule.injectDrinksRepository()
+        self.drinksRepository = drinksRepository
     }
     
     // MARK: DrinksSearchListInterfaceOut
     
     func didLoad() {
-        drinksRepository?.getIngredientsList(completion: { [weak self] result in
+        drinksRepository.getIngredientsList(completion: { [weak self] result in
             self?.allIngredients = (try? result.get()) ?? []
         })
     }
@@ -43,7 +44,7 @@ class DrinksSearchListPresenter: DrinksSearchListInterfaceOut
         
         self.ui.startLoading()
         
-        self.drinksRepository?.filterDrinksByIngradient(name: ingradient, completion: { [weak self] result in
+        self.drinksRepository.filterDrinksByIngradient(name: ingradient, completion: { [weak self] result in
             
             guard let self else { return }
             

@@ -10,7 +10,7 @@ import Foundation
 class AppMainModule {
     
     class func injectDrinksRepository() -> DrinksRepositoryProtocol {
-        let service = DrinksFilterService()
+        let service = DrinksService()
         return DrinksRepository(service: service)
     }
 }

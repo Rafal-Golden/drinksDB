@@ -8,20 +8,6 @@
 import Foundation
 import UIKit
 
-protocol Coordinator: AnyObject
-{
-    func start()
-    
-    func navigate(to destination: Destination, animated: Bool, completion: @escaping () -> Void)
-}
-
-extension Coordinator
-{
-    func navigate(to destination: Destination)
-    {
-        navigate(to: destination, animated: true) { }
-    }
-}
 
 class AppCoordinator: Coordinator {
     

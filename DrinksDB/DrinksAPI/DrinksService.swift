@@ -14,7 +14,7 @@ public protocol DrinksServiceProtocol {
     func fetchIngradientsList(completion: @escaping (Result<DrinkIngredients, NSError>) -> Void)
 }
 
-public final class DrinksFilterService: DrinksServiceProtocol {
+public final class DrinksService: DrinksServiceProtocol {
     
     private let apiRequestService = APIRequestService()
     
