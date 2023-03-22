@@ -93,7 +93,6 @@ final class DrinksSearchListPresenterTests: XCTestCase {
         
         func setHint(ingredients: String) {
             hintIngredients = ingredients
-            print(">>> setHint ingradients [\(ingredients)]")
         }
     }
     

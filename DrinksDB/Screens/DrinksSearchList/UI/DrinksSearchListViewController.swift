@@ -66,9 +66,7 @@ class DrinksSearchListViewController: UIViewController, DrinksSearchListInterfac
 
 extension DrinksSearchListViewController: UISearchBarDelegate {
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange: String) {
-        print(">>> \(#function) text \(textDidChange)")
-        
+    func searchBar(_ searchBar: UISearchBar, textDidChange: String) {        
         // I would prefer to use Combine and publiser but requirement is to support iOS11
         
         let filteringBlock = DispatchWorkItem { [weak self] in
