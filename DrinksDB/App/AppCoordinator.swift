@@ -13,7 +13,7 @@ class AppCoordinator: Coordinator {
     
     let navigationController: UINavigationController
  
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController = .init()) {
         self.navigationController = navigationController
     }
     
