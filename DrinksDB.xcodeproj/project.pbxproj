@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		991C82652D71D6BF00083F89 /* AsyncDrinkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991C82642D71D6BF00083F89 /* AsyncDrinkServiceTests.swift */; };
+		991C82672D71D86C00083F89 /* AsyncDrinkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991C82662D71D86C00083F89 /* AsyncDrinkService.swift */; };
+		991C82682D71D86C00083F89 /* AsyncDrinkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991C82662D71D86C00083F89 /* AsyncDrinkService.swift */; };
+		991C826A2D71DA9900083F89 /* NSError+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991C82692D71DA9900083F89 /* NSError+extension.swift */; };
+		991C826B2D71DA9900083F89 /* NSError+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991C82692D71DA9900083F89 /* NSError+extension.swift */; };
+		998AEA0D2D8868D00054E3A3 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998AEA0C2D8868D00054E3A3 /* SearchViewModel.swift */; };
 		998D721B29A5375A00DA39FC /* DrinkItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998D721A29A5375A00DA39FC /* DrinkItemCell.swift */; };
 		998D721D29A53BB100DA39FC /* DrinksModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998D721C29A53BB100DA39FC /* DrinksModel.swift */; };
 		998D721F29A5471E00DA39FC /* DrinkImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998D721E29A5471E00DA39FC /* DrinkImageDownloader.swift */; };
@@ -73,6 +79,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		991C82642D71D6BF00083F89 /* AsyncDrinkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncDrinkServiceTests.swift; sourceTree = "<group>"; };
+		991C82662D71D86C00083F89 /* AsyncDrinkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncDrinkService.swift; sourceTree = "<group>"; };
+		991C82692D71DA9900083F89 /* NSError+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSError+extension.swift"; sourceTree = "<group>"; };
+		998AEA0C2D8868D00054E3A3 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		998D721A29A5375A00DA39FC /* DrinkItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkItemCell.swift; sourceTree = "<group>"; };
 		998D721C29A53BB100DA39FC /* DrinksModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinksModel.swift; sourceTree = "<group>"; };
 		998D721E29A5471E00DA39FC /* DrinkImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DrinkImageDownloader.swift; path = DrinksDB/DrinksAPI/DrinkImageDownloader.swift; sourceTree = SOURCE_ROOT; };
@@ -215,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				998D723929AF60D200DA39FC /* DrinksServiceMock.swift */,
+				991C82642D71D6BF00083F89 /* AsyncDrinkServiceTests.swift */,
 				99C25F4829A36F1900B85BB0 /* DrinksFilterRepositoryTests.swift */,
 				998D723729AE55E600DA39FC /* DrinksSearchListPresenterTests.swift */,
 				998D724629B0B5C100DA39FC /* CoreTests.swift */,
@@ -238,8 +249,10 @@
 				99C25FA129A3950A00B85BB0 /* DrinksService.swift */,
 				99C25FA629A3C48E00B85BB0 /* Drinks.swift */,
 				998D722029A616E600DA39FC /* DrinkDetails.swift */,
+				991C82662D71D86C00083F89 /* AsyncDrinkService.swift */,
 				998D723329A66AC600DA39FC /* DrinkIngredients.swift */,
 				99C25FA429A39FF500B85BB0 /* APIRequestService.swift */,
+				991C82692D71DA9900083F89 /* NSError+extension.swift */,
 			);
 			path = DrinksAPI;
 			sourceTree = "<group>";
@@ -269,6 +282,7 @@
 				99C25FAF29A4CBB200B85BB0 /* DrinksSearchListInterface.swift */,
 				99C25FAE29A4CBB200B85BB0 /* DrinksSearchListViewController.swift */,
 				99C25FAD29A4CBB200B85BB0 /* DrinksSearchList.storyboard */,
+				998AEA0C2D8868D00054E3A3 /* SearchViewModel.swift */,
 				998D721A29A5375A00DA39FC /* DrinkItemCell.swift */,
 				998D721C29A53BB100DA39FC /* DrinksModel.swift */,
 				998D721E29A5471E00DA39FC /* DrinkImageDownloader.swift */,
@@ -443,6 +457,7 @@
 				99C25FBF29A52C3300B85BB0 /* AppMainModule.swift in Sources */,
 				998D722129A616E600DA39FC /* DrinkDetails.swift in Sources */,
 				998D723429A66AC600DA39FC /* DrinkIngredients.swift in Sources */,
+				991C82682D71D86C00083F89 /* AsyncDrinkService.swift in Sources */,
 				998D724029B0B09300DA39FC /* Coordinator.swift in Sources */,
 				998D724429B0B2D600DA39FC /* DrinksSearchListPresenter+Init.swift in Sources */,
 				998D721B29A5375A00DA39FC /* DrinkItemCell.swift in Sources */,
@@ -452,9 +467,11 @@
 				99C25F3229A36F1300B85BB0 /* AppDelegate.swift in Sources */,
 				99C25FB829A4CBB200B85BB0 /* DrinksSearchListPresenter.swift in Sources */,
 				99C25FA229A3950A00B85BB0 /* DrinksService.swift in Sources */,
+				998AEA0D2D8868D00054E3A3 /* SearchViewModel.swift in Sources */,
 				99C25FA529A39FF500B85BB0 /* APIRequestService.swift in Sources */,
 				998D722D29A628A800DA39FC /* DrinkDetailsViewController.swift in Sources */,
 				99C25F9F29A38CFD00B85BB0 /* DrinksRepository.swift in Sources */,
+				991C826B2D71DA9900083F89 /* NSError+extension.swift in Sources */,
 				998D723029A628A800DA39FC /* DrinkDetailsPresenter.swift in Sources */,
 				99FB4A952A1D010E0044B6F2 /* SceneDelegate.swift in Sources */,
 				998D722C29A628A800DA39FC /* DrinkDetailsInterface.swift in Sources */,
@@ -473,16 +490,19 @@
 				99C25FA329A3973F00B85BB0 /* DrinksService.swift in Sources */,
 				998D723E29B0B06100DA39FC /* Destination.swift in Sources */,
 				99C25FA829A3C48E00B85BB0 /* Drinks.swift in Sources */,
+				991C82652D71D6BF00083F89 /* AsyncDrinkServiceTests.swift in Sources */,
 				998D723C29B0B02E00DA39FC /* DrinksModel.swift in Sources */,
 				998D724129B0B09400DA39FC /* Coordinator.swift in Sources */,
 				998D723529A66AC600DA39FC /* DrinkIngredients.swift in Sources */,
 				998D722229A616E600DA39FC /* DrinkDetails.swift in Sources */,
 				998D724229B0B11600DA39FC /* DrinksSearchListInterface.swift in Sources */,
 				998D723B29B0AD1800DA39FC /* DrinksSearchListPresenter.swift in Sources */,
+				991C82672D71D86C00083F89 /* AsyncDrinkService.swift in Sources */,
 				99C25FA929A3CB4600B85BB0 /* APIRequestService.swift in Sources */,
 				99C25F4929A36F1900B85BB0 /* DrinksFilterRepositoryTests.swift in Sources */,
 				998D723829AE55E600DA39FC /* DrinksSearchListPresenterTests.swift in Sources */,
 				998D723A29AF60D200DA39FC /* DrinksServiceMock.swift in Sources */,
+				991C826A2D71DA9900083F89 /* NSError+extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -641,7 +661,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -671,7 +691,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -694,7 +714,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y4KBF2M4M7;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dev-nm2.drinks.DrinksDBTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -714,7 +734,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y4KBF2M4M7;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dev-nm2.drinks.DrinksDBTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";

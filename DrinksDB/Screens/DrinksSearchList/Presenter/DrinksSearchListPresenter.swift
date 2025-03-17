@@ -16,6 +16,7 @@ class DrinksSearchListPresenter: DrinksSearchListInterfaceOut
     
     private var drinksRepository: DrinksRepositoryProtocol
     private var allIngredients: [String] = []
+    private var searchByIngredient: Bool = false
 
     init(ui: DrinksSearchListInterfaceIn, coordinator: Coordinator,
          drinksRepository: DrinksRepositoryProtocol) {
@@ -28,24 +29,40 @@ class DrinksSearchListPresenter: DrinksSearchListInterfaceOut
     
     // MARK: DrinksSearchListInterfaceOut
     
-    func didLoad() {
+    @MainActor
+    private func getRandomButtonInfo() {
+        ui.setRandomButton(title: nil)
+        
+        Task { [weak self] in
+            guard let self else { return }
+            do {
+                let drinkDetails = try await drinksRepository.getRandomDrinkDetails()
+                self.ui.setRandomButton(title: drinkDetails.name)
+            } catch {
+                print(">>> error \(error)")
+            }
+        }
+    }
+    
+    @MainActor func didLoad() {
         drinksRepository.getIngredientsList(completion: { [weak self] result in
             self?.allIngredients = (try? result.get()) ?? []
         })
+
+        getRandomButtonInfo()
+        
+        let searchViewModel = SearchViewModel(ingredientType: false)
+        self.ui.setSearchTypeUI(searchViewModel)
     }
     
     func didSelectedCell(drinkId: String) {
-        ui.setTitle("Drinks list")
+        let title = NSLocalizedString("Drinks list", comment: "")
+        ui.setTitle(title)
         coordinator.navigate(to: .drinkDetails(id: drinkId))
     }
     
-    func filterBy(ingradient: String) {
-        self.ui.setHint(ingredients: availableIngradients(phrase: ingradient))
-        
-        self.ui.startLoading()
-        
-        self.drinksRepository.filterDrinksByIngradient(name: ingradient, completion: { [weak self] result in
-            
+    func searchBy(phrase: String) {
+        let completion: (Result<Drinks, NSError>) -> Void = {  [weak self] result in
             guard let self else { return }
             
             switch result {
@@ -53,9 +70,24 @@ class DrinksSearchListPresenter: DrinksSearchListInterfaceOut
                     self.refreshFiltered(drinksModel: DrinksModel(drinks: drinks))
                     
                 case .failure(_):
-                    self.refreshFiltered(drinksModel: .empty, phrase: ingradient)
+                    self.refreshFiltered(drinksModel: .empty, phrase: phrase)
             }
-        })
+        }
+        
+        self.ui.setHint(ingredients: availableIngredients(phrase: phrase))
+        
+        self.ui.startLoading()
+        
+        if searchByIngredient {
+            drinksRepository.filterDrinksByIngredient(name: phrase, completion: completion)
+        } else {
+            drinksRepository.searchDrinksBy(phrase: phrase, completion: completion)
+        }
+    }
+    
+    func didSelectedSearchTypeBy(ingredient: Bool, phrase: String) {
+        searchByIngredient = ingredient
+        searchBy(phrase: phrase)
     }
     
     private func refreshFiltered(drinksModel: DrinksModel, phrase: String="") {
@@ -69,8 +101,8 @@ class DrinksSearchListPresenter: DrinksSearchListInterfaceOut
         }
     }
     
-    private func availableIngradients(phrase: String) -> String {
+    private func availableIngredients(phrase: String) -> String {
         let results = allIngredients.filter({ $0.contains(phrase) })
-        return "Ingradients: "+results.joined(separator: ", ")
+        return "Ingredients: "+results.joined(separator: ", ")
     }
 }

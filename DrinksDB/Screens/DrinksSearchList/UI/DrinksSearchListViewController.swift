@@ -13,6 +13,8 @@ class DrinksSearchListViewController: UIViewController, DrinksSearchListInterfac
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var failureInfoLabel: UILabel!
     @IBOutlet private weak var ingedientsLabel: UILabel!
+    @IBOutlet private weak var randomDrinkButton: UIButton!
+    @IBOutlet private weak var searchTypeButton: UIButton!
     @IBOutlet private weak var loadingView: UIActivityIndicatorView!
     
     public var presenter: DrinksSearchListInterfaceOut!
@@ -21,8 +23,9 @@ class DrinksSearchListViewController: UIViewController, DrinksSearchListInterfac
         return presenter.drinksModel.items
     }
     
-    private var delayedFilteringBlock: DispatchWorkItem?
-    private var filteringDelayInSeconds: Double = 0.6
+    private var delayedSearchBlock: DispatchWorkItem?
+    private var searchingDelayInSeconds: Double = 0.6
+    private var randomDrinkTitle: String?
 
     // eMARK: - init & life cycle
     
@@ -33,6 +36,18 @@ class DrinksSearchListViewController: UIViewController, DrinksSearchListInterfac
         
         failureInfoLabel.text = ""
         loadingView.stopAnimating()
+    }
+    
+    @IBAction func randomDrinkAction(_ sender: UIButton) {
+        if let randomDrinkTitle {
+            searchBar.text = randomDrinkTitle
+            searchBar(searchBar, textDidChange: randomDrinkTitle)
+        }
+    }
+    
+    @IBAction func searchTypeAction(_ sender: UIButton) {
+        searchTypeButton.isSelected.toggle()
+        presenter.didSelectedSearchTypeBy(ingredient: searchTypeButton.isSelected, phrase: searchBar.text ?? "")
     }
     
     // MARK: DrinksSearchListInterfaceIn
@@ -62,21 +77,45 @@ class DrinksSearchListViewController: UIViewController, DrinksSearchListInterfac
             self.failureInfoLabel.alpha = 1.0
         }
     }
+    
+    func setRandomButton(title: String?) {
+        var isHidden = false
+        
+        guard let title else {
+            isHidden = true
+            randomDrinkButton.setTitle("", for: .normal)
+            return
+        }
+        
+        let randomTitle = "Random: \(title)"
+        
+        randomDrinkButton.titleLabel?.numberOfLines = 2
+        randomDrinkButton.setTitle(randomTitle, for: .normal)
+        randomDrinkButton.isHidden = isHidden
+        randomDrinkTitle = title
+    }
+    
+    func setSearchTypeUI(_ viewModel: SearchViewModel) {
+        searchTypeButton.setTitle(viewModel.searchTitle, for: .normal)
+        searchTypeButton.setTitle(viewModel.ingredientTitle, for: .selected)
+        searchTypeButton.isSelected = viewModel.ingredientType
+        searchBar.placeholder = viewModel.placeholder
+    }
 }
 
 extension DrinksSearchListViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange: String) {        
-        // I would prefer to use Combine and publiser but requirement is to support iOS11
-        
-        let filteringBlock = DispatchWorkItem { [weak self] in
-            self?.presenter.filterBy(ingradient: textDidChange)
+        // I would prefer to use Combine and publisher but requirement is to support iOS11
+                
+        let searchingBlock = DispatchWorkItem { [weak self] in
+            self?.presenter.searchBy(phrase: textDidChange)
         }
         
-        delayedFilteringBlock?.cancel()
-        delayedFilteringBlock = filteringBlock
+        delayedSearchBlock?.cancel()
+        delayedSearchBlock = searchingBlock
         
-        DispatchQueue.main.asyncAfter(deadline: .now()+filteringDelayInSeconds, execute: filteringBlock)
+        DispatchQueue.main.asyncAfter(deadline: .now()+searchingDelayInSeconds, execute: searchingBlock)
     }
 }
 

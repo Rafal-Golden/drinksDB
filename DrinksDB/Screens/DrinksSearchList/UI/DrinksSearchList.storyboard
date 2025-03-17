@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rmd-Yr-nd7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rmd-Yr-nd7">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -24,19 +24,41 @@
                                     <outlet property="delegate" destination="rmd-Yr-nd7" id="CkN-7s-4Vv"/>
                                 </connections>
                             </searchBar>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VPV-n4-k9H">
-                                <rect key="frame" x="20" y="124" width="374" height="20.5"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EH3-Z5-oX1">
+                                <rect key="frame" x="334.5" y="84" width="47.5" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="YCk-45-mRv"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Type">
+                                    <fontDescription key="titleFontDescription" type="system" weight="light" pointSize="10"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="searchTypeAction:" destination="rmd-Yr-nd7" eventType="touchUpInside" id="lAU-qm-2Si"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="VPV-n4-k9H">
+                                <rect key="frame" x="20" y="124" width="374" height="55"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ingradients: " textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rqi-Lm-bVc">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="20.5"/>
+                                        <rect key="frame" x="140" y="0.0" width="94.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" systemColor="systemIndigoColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HH9-yi-JHa">
+                                        <rect key="frame" x="119" y="20.5" width="136.5" height="34.5"/>
+                                        <color key="tintColor" systemColor="systemMintColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="tinted" title="Random: Drink"/>
+                                        <connections>
+                                            <action selector="randomDrinkAction:" destination="rmd-Yr-nd7" eventType="touchUpInside" id="bwb-zI-Y1x"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="odY-aw-beM">
-                                <rect key="frame" x="0.0" y="168.5" width="414" height="669.5"/>
+                                <rect key="frame" x="0.0" y="203" width="414" height="635"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DrinkItemCellID" id="uUR-TB-CTn" customClass="DrinkItemCell" customModule="DrinksDB" customModuleProvider="target">
@@ -103,8 +125,10 @@
                             <constraint firstItem="9D4-m9-sKP" firstAttribute="centerY" secondItem="Svc-kM-a89" secondAttribute="centerY" id="44C-AI-BPx"/>
                             <constraint firstItem="cfn-hZ-GqW" firstAttribute="trailing" secondItem="VPV-n4-k9H" secondAttribute="trailing" constant="20" id="9SK-gB-YsQ"/>
                             <constraint firstItem="XxA-fd-fKt" firstAttribute="centerY" secondItem="Svc-kM-a89" secondAttribute="centerY" id="AT3-9l-5kh"/>
+                            <constraint firstItem="ELR-bA-Pbc" firstAttribute="trailing" secondItem="EH3-Z5-oX1" secondAttribute="trailing" constant="32" id="Be7-jA-OcD"/>
                             <constraint firstItem="XxA-fd-fKt" firstAttribute="centerX" secondItem="Svc-kM-a89" secondAttribute="centerX" id="C2Q-j8-qz2"/>
                             <constraint firstItem="ELR-bA-Pbc" firstAttribute="trailing" secondItem="cfn-hZ-GqW" secondAttribute="trailing" id="EPg-GD-5si"/>
+                            <constraint firstItem="EH3-Z5-oX1" firstAttribute="centerY" secondItem="ELR-bA-Pbc" secondAttribute="centerY" id="GbH-AI-Y7e"/>
                             <constraint firstItem="VPV-n4-k9H" firstAttribute="leading" secondItem="cfn-hZ-GqW" secondAttribute="leading" constant="20" id="Mrh-Qx-f7k"/>
                             <constraint firstItem="odY-aw-beM" firstAttribute="trailing" secondItem="cfn-hZ-GqW" secondAttribute="trailing" id="PW1-KX-gez"/>
                             <constraint firstItem="ELR-bA-Pbc" firstAttribute="top" secondItem="cfn-hZ-GqW" secondAttribute="top" constant="20" id="RNn-5n-obp"/>
@@ -122,7 +146,9 @@
                         <outlet property="failureInfoLabel" destination="9D4-m9-sKP" id="uZk-6f-B1o"/>
                         <outlet property="ingedientsLabel" destination="rqi-Lm-bVc" id="abd-OD-xmR"/>
                         <outlet property="loadingView" destination="XxA-fd-fKt" id="Hcs-rO-EnE"/>
+                        <outlet property="randomDrinkButton" destination="HH9-yi-JHa" id="tzj-2n-SG2"/>
                         <outlet property="searchBar" destination="ELR-bA-Pbc" id="D4V-gW-uXn"/>
+                        <outlet property="searchTypeButton" destination="EH3-Z5-oX1" id="SWB-sV-T0h"/>
                         <outlet property="tableView" destination="odY-aw-beM" id="TSf-TC-5h3"/>
                     </connections>
                 </viewController>
@@ -136,7 +162,10 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemIndigoColor">
-            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemMintColor">
+            <color red="0.0" green="0.78039215689999997" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

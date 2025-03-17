@@ -11,6 +11,7 @@ class AppMainModule {
     
     class func injectDrinksRepository() -> DrinksRepositoryProtocol {
         let service = DrinksService()
-        return DrinksRepository(service: service)
+        let asyncService = AsyncDrinkService()
+        return DrinksRepository(service: service, asyncService: asyncService)
     }
 }

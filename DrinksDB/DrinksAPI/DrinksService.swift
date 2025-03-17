@@ -12,6 +12,7 @@ public protocol DrinksServiceProtocol {
     func fetchDrinksUsingFilter(name: String, completion: @escaping (Result<Drinks, NSError>) -> Void)
     func fetchDrinkDetails(id: String, completion: @escaping (Result<DrinkDetails, NSError>) -> Void)
     func fetchIngradientsList(completion: @escaping (Result<DrinkIngredients, NSError>) -> Void)
+    func fetchDrinksUsingSearch(name: String, completion: @escaping (Result<Drinks, NSError>) -> Void)
 }
 
 public final class DrinksService: DrinksServiceProtocol {
@@ -64,5 +65,16 @@ public final class DrinksService: DrinksServiceProtocol {
         let request = apiRequestService.request(method: "GET", path: path, queryItems: queryItems)
         
         _ = apiRequestService.runJson(request: request, completion: completion)
+    }
+    
+    public func fetchDrinksUsingSearch(name: String, completion: @escaping (Result<Drinks, NSError>) -> Void) {
+        let path = "https://www.thecocktaildb.com/api/json/v1/1/search.php"
+        let queryItems = [
+            URLQueryItem(name: "s", value: name)
+        ]
+        let request = apiRequestService.request(method: "GET", path: path, queryItems: queryItems)
+        
+        filterDrinksTask?.cancel()
+        filterDrinksTask = apiRequestService.runJson(request: request, completion: completion)
     }
 }
