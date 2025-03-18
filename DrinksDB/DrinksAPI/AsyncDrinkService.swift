@@ -31,30 +31,36 @@ final class AsyncDrinkService: AsyncDrinkServiceProtocol {
     func fetchRandomDrink() async throws -> DrinkDetails {
         let urlPath = baseURL.appendingPathComponent("random.php")
         
+        let data = try await fetchData(from: urlPath)
+        let decoder = JSONDecoder()
+        let drinkDetailsContainer = try decoder.decode(DrinkDetailsContainer.self, from: data)
+        
+        guard let drinkDetails = drinkDetailsContainer.drinks.first else {
+            throw NSError.appError(code: 6, description: "Empty Response error!")
+        }
+        
+        return drinkDetails
+    }
+    
+    private func fetchData(from url: URL) async throws -> Data {
         do {
-            let (data, response) = try await urlSession.data(from: urlPath)
-            
+            let (data, response) = try await urlSession.data(from: url)
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                throw NSError.appError(code: 5, description: "Response error!")
+                throw NSError.appError(code: 5, description: "Invalid response!")
             }
-            
-            let decoder = JSONDecoder()
-            let drinkDetailsContainer = try decoder.decode(DrinkDetailsContainer.self, from: data)
-            
-            guard let drinkDetails = drinkDetailsContainer.drinks.first else {
-                throw NSError.appError(code: 6, description: "Empty Response error!")
-            }
-            
-            return drinkDetails
+            return data
+        } catch {
+            throw handleError(error)
         }
-        catch let error as NSError {
-            if let decodeErr = error as? DecodingError {
-                throw NSError.appError(code: 7, description: "JSON decoding error! \(decodeErr)")
-            } else if error.code != 5 {
-                throw NSError.appError(code: 4, description: "Service connection error! \(error)")
-            }
-            throw error
+    }
+    
+    private func handleError(_ error: Error) -> NSError {
+        if let decodingError = error as? DecodingError {
+            return NSError.appError(code: 7, description: "JSON decoding error: \(decodingError)")
+        } else if (error as NSError).code != 5 {
+            return NSError.appError(code: 4, description: "Service connection error: \(error)")
         }
+        return error as NSError
     }
 }
 
