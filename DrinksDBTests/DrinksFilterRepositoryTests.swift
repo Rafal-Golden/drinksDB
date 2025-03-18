@@ -53,7 +53,7 @@ final class DrinksRepositoryTests: XCTestCase {
         var filterDrinksCompleted = false
         
         // When
-        sut.filterDrinksByIngradient(name: ingradientName) { result in
+        sut.filterDrinksByIngredient(name: ingradientName) { result in
             switch result {
                 case .success(_):
                     break
@@ -75,7 +75,7 @@ final class DrinksRepositoryTests: XCTestCase {
         var filterDrinksCompleted = false
         
         // When
-        sut.filterDrinksByIngradient(name: ingradientName) { result in
+        sut.filterDrinksByIngredient(name: ingradientName) { result in
             switch result {
                 case .success(let filteredDrinks):
                     filterDrinksCompleted = true

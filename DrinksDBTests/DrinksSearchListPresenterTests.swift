@@ -94,18 +94,26 @@ final class DrinksSearchListPresenterTests: XCTestCase {
         func setHint(ingredients: String) {
             hintIngredients = ingredients
         }
+        
+        func setRandomButton(title: String?) {
+            
+        }
+        
+        func setSearchTypeUI(_ viewModel: SearchViewModel) {
+            
+        }
     }
     
 
-    func testSearchWater_success_returnsSomething() throws {
+    @MainActor func testSearchWater_success_returnsSomething() throws {
         // Given
-        let dummyIngradientsWater = CoreTests.MyDrinks.Ingredients.water
-        drinksServiceMock.resultIngredients = .success(dummyIngradientsWater)
+        let dummyIngredientsWater = CoreTests.MyDrinks.Ingredients.water
+        drinksServiceMock.resultIngredients = .success(dummyIngredientsWater)
         drinksServiceMock.result = .success(CoreTests.MyDrinks.withWater)
         
         // When
         sut.didLoad()
-        sut.filterBy(ingradient: "Water")
+        sut.didSelectedSearchTypeBy(ingredient: true, phrase: "Water") // calls searchBy(phrase: "Water")
         
         // Expected result
         XCTAssertTrue(sut.drinksModel.items.count > 0)
@@ -115,13 +123,13 @@ final class DrinksSearchListPresenterTests: XCTestCase {
         XCTAssertTrue(drinksSearchListUIMock.refreshListCalled)
     }
     
-    func testSearchWater_failed_returnsNothing() throws {
+    @MainActor func testSearchWater_failed_returnsNothing() throws {
         // Given
         drinksServiceMock.resultIngredients = .failure(dummyError)
         
         // When
         sut.didLoad()
-        sut.filterBy(ingradient: "Water")
+        sut.didSelectedSearchTypeBy(ingredient: true, phrase: "Water") // calls searchBy(phrase: "Water")
         
         // Expected result
         XCTAssertTrue(sut.drinksModel.items.count == 0)
