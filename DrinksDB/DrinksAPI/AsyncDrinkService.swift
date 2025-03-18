@@ -18,12 +18,12 @@ protocol AsyncDrinkServiceProtocol {
     func fetchRandomDrink() async throws -> DrinkDetails
 }
 
-struct AsyncDrinkService: AsyncDrinkServiceProtocol {
+final class AsyncDrinkService: AsyncDrinkServiceProtocol {
     
     let urlSession: URLSessionProtocol
     let baseURL: URL
     
-    init(urlSession: URLSessionProtocol = URLSession.shared, baseURL: URL? = nil) {
+    init(urlSession: URLSessionProtocol, baseURL: URL? = nil) {
         self.urlSession = urlSession
         self.baseURL = baseURL ?? URL(string: "https://www.thecocktaildb.com/api/json/v1/1/")!
     }
@@ -48,10 +48,18 @@ struct AsyncDrinkService: AsyncDrinkServiceProtocol {
             return drinkDetails
         }
         catch let error as NSError {
-            if error.code != 5 {
+            if let decodeErr = error as? DecodingError {
+                throw NSError.appError(code: 7, description: "JSON decoding error! \(decodeErr)")
+            } else if error.code != 5 {
                 throw NSError.appError(code: 4, description: "Service connection error! \(error)")
             }
             throw error
         }
+    }
+}
+
+extension AsyncDrinkService {
+    convenience init() {
+        self.init(urlSession: URLSession.shared)
     }
 }

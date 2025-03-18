@@ -34,4 +34,8 @@ class DrinksServiceMock: DrinksServiceProtocol {
         fetchIngradientsListCompleted = true
         completion(resultIngredients)
     }
+    
+    func fetchDrinksUsingSearch(name: String, completion: @escaping (Result<Drinks, NSError>) -> Void) {
+        
+    }
 }

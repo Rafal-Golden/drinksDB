@@ -13,7 +13,7 @@ struct DrinkItemCellModel {
     var imageUrl: String
 }
 
-struct DrinksModel {
+public class DrinksModel: NSObject {
     
     var items: [DrinkItemCellModel]
     

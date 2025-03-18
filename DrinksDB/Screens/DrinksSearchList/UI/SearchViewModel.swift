@@ -7,15 +7,22 @@
 
 import Foundation
 
-struct SearchViewModel {
+public class SearchViewModel: NSObject {
     let placeholder: String
     let searchTitle: String
     let ingredientTitle: String
     let ingredientType: Bool
+    
+    init(placeholder: String, searchTitle: String, ingredientTitle: String, ingredientType: Bool) {
+        self.placeholder = placeholder
+        self.searchTitle = searchTitle
+        self.ingredientTitle = ingredientTitle
+        self.ingredientType = ingredientType
+    }
 }
 
 extension SearchViewModel {
-    init(ingredientType: Bool) {
+    convenience init(ingredientType: Bool) {
         let placeholder: String
         if ingredientType {
             placeholder = NSLocalizedString("Type drink ingredient name", comment: "")

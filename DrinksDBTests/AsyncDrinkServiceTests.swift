@@ -60,10 +60,27 @@ final class AsyncDrinkServiceTests: XCTestCase {
         }
     }
     
+    func testFetchRandomDrink_Failure_ReturnsJSONDecodingError() async throws {
+        urlSessionMock.returnResponse = CoreTests.HTTPURLResponses.statusOK
+        let expectedDrinkDetails = DrinkDetails.blank
+        urlSessionMock.setData(type: expectedDrinkDetails)
+        
+        let expectedError = NSError.appError(code: 7, description: "JSON decoding error!")
+        do {
+            _ = try await sut.fetchRandomDrink()
+            XCTFail("Expected failure, but function succeeded!")
+        }
+        catch let error as NSError {
+            XCTAssertEqual(error.domain, expectedError.domain)
+            XCTAssertEqual(error.code, expectedError.code)
+        }
+    }
+    
     func testFetchRandomDrink_Success_ReturnsDrinkDetails() async throws {
         urlSessionMock.returnResponse = CoreTests.HTTPURLResponses.statusOK
-        let expectedDrinkDetails = CoreTests.MyDrinks.details.chocoDrink
-        urlSessionMock.setData(type: expectedDrinkDetails)
+        let drinkContainer = CoreTests.MyDrinks.Container.chocoDrink
+        let expectedDrinkDetails = drinkContainer.drinks[0]
+        urlSessionMock.setData(type: drinkContainer)
         
         do {
             let fetchedDrinkDetails = try await sut.fetchRandomDrink()
